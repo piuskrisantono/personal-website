@@ -46,7 +46,7 @@ const portfolios = [
 	{
 		image: "./img/webss/pintester.png",
 		title: "Pintester",
-		description: `A Laravel event-commerce app, where you can sell or buy pictures for any purposes. This project was built for Web Programming Course from Binus University`,
+		description: `A Laravel e-commerce app, where you can sell or buy pictures for any purposes. This project was built for Web Programming Course from Binus University`,
 		techstack: ["Laravel"],
 		sourcecode: "https://github.com/piuskrisantono/pintester",
 		website: "http://wiatmojo-pintester.herokuapp.com",
@@ -91,18 +91,17 @@ const portfolios = [
 		sourcecode: "https://codepen.io/piuskrisantono/pen/vYBexGV",
 		website: "https://codepen.io/piuskrisantono/full/vYBexGV",
 	}
-];
+]
 
-const closeModal = () => {
+function closeModal() {
 	document.querySelector(".modal-container").style.top = "-100vh";
-	document.querySelector("#modal-bg").style.backgroundColor = "white";
+	document.querySelector("#modal-bg").style.backgroundColor = "rgba(0, 0, 0, 0)";
 	setTimeout(() => document.querySelector("#modal-bg").style.display = "none", 200);
-};
+}
 
 
 document.querySelector("#close-modal").addEventListener('click', () => closeModal());
 document.querySelector("#modal-bg").addEventListener('click', () => closeModal());
-
 
 const updateModalContent = (portfolio) => {
 	document.querySelector("#modal-title").innerText = portfolio.title;
@@ -121,8 +120,7 @@ const updateModalContent = (portfolio) => {
 		document.querySelector(".modal-container").style.top = "0";
 		document.querySelector("#modal-bg").style.backgroundColor = "rgba(0,0,0,0.8)";
 	}, 10);
-
-}
+};
 
 const renderCard = (portfolio) => {
 	const card = document.createElement('div');
@@ -143,8 +141,8 @@ const renderCard = (portfolio) => {
 	buttonContainer.classList.add('card-title');
 
 	const category = document.createElement('div');
-
 	category.classList.add("category");
+
 	let techstackHTML = "";
 	portfolio.techstack.forEach((stack) => techstackHTML += `<div>${stack}</div>`);
 	category.innerHTML = techstackHTML;
@@ -162,44 +160,47 @@ const renderCard = (portfolio) => {
 	const linkButton = document.createElement('div');
 	linkButton.classList.add("card-link");
 	linkButton.innerHTML = `
-				<div class="card-link">
-					<a href="${portfolio.sourcecode}" class="fab fa-github card-link-a" target="_blank"></a>
-					<a href="${portfolio.website}" class="fas fa-globe card-link-a" target="_blank"></a>
-				</div>
+		<div class="card-link">
+			<a href="${portfolio.sourcecode}" class="fab fa-github card-link-a" target="_blank"></a>
+			<a href="${portfolio.website}" class="fas fa-globe card-link-a" target="_blank"></a>
+		</div>
 	`;
 
-	buttonContainer.appendChild(category).appendChild(linkButton);
 
-	card.addEventListener('mouseover', () => {
-		currentImage = this.children[1].style.backgroundImage;
+	buttonContainer.appendChild(category);
+	buttonContainer.appendChild(linkButton);
+
+	card.addEventListener('mouseover', function () {
+		currentImage = this.children[1].style.backgroundImage
 		this.children[1].style.backgroundImage = this.children[1].style.backgroundImage.split(')), ')[1];
 	});
 
-	card.addEventListener('mouseout', () => this.children[1].style.backgroundImage = currentImage);
+	card.addEventListener('mouseout', function () {
+		this.children[1].style.backgroundImage = currentImage;
+	});
 
 	card.addEventListener('click', () => updateModalContent(portfolio));
 
 	document.getElementById("portfolio-list").appendChild(card).appendChild(buttonContainer);
-}
+};
+
 
 portfolios.map((portfolio) => renderCard(portfolio));
 
 const cardLinks = document.getElementsByClassName('card-link-a');
-cardLinks.forEach((cardLink) => {
-	cardLink.addEventListener('click', (event) => event.stopPropagation());
-});
 
-document.querySelector('.modal-container').addEventListener('click', (event) => {
-	event.stopPropagation();
-});
+for (let i = 0; i < cardLinks.length; i++) {
+	cardLinks[i].addEventListener('click', (event) => event.stopPropagation());
+};
 
-const isVisible = (element) => {
+document.querySelector('.modal-container').addEventListener('click', (event) => event.stopPropagation());
+
+function isVisible(element) {
 	const { top, bottom } = element.getBoundingClientRect();
 	const vHeight = (window.innerHeight || document.documentElement.clientHeight);
 
-	return (top > 0 || bottom > 0) && (top < vHeight);
-};
-
+	return (top > 0 || bottom > 0) && top < vHeight;
+}
 
 window.addEventListener('scroll', () => {
 	if (window.scrollY != 0) {
@@ -219,17 +220,20 @@ window.addEventListener('scroll', () => {
 		menuPortfolio.classList.add('active');
 		menuAbout.classList.remove('active');
 	}
-})
+});
 
-const changeTheme = () => {
-	const html = document.getElementsByTagName('html')[0];
+
+function changeTheme() {
+	let html = document.getElementsByTagName('html')[0];
 	if (darkTheme) {
 		html.style.cssText = "--background-color: #EDF6F9; --second-background-color: #FFF; --title-color: #3c425a; --text-color: #565867; --nav-background-color: #EDF6F9; --overlay-blue: #36558F80; --accent-text-color: #fff;";
 		darkTheme = false;
 		document.querySelector('#switcher-ball').style.left = "28px";
+		document.querySelector('#logo').src = "./img/logo-pius-dark.png";
 	} else {
-		html.style.cssText = "--background-color: #1b1b2f; --second-background-color: #162447; --title-color: #ECF0F1; --text-color: #ABB7B7;--nav-background-color: #1f4068; --overlay-blue: #162447CC; --accent-text-color: #ECF0F1;"
+		html.style.cssText = "--background-color: #1b1b2f; --second-background-color: #162447; --title-color: #ECF0F1; --text-color: #ABB7B7;--nav-background-color: #1f4068; --overlay-blue: #162447CC; --accent-text-color: #ECF0F1;";
 		darkTheme = true;
 		document.querySelector('#switcher-ball').style.left = "0px";
+		document.querySelector('#logo').src = "./img/logo-pius-white.png";
 	}
-};
+}
