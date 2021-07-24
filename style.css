@@ -543,7 +543,6 @@
 		@media only screen and (max-width: 900px){
 			.container{
 				max-width: 90%;
-
 			}
 
 			#logo {
@@ -623,7 +622,8 @@
 
 			.modal-container{
 				min-width: 0px;
-				max-width: none;
+				max-width: 372px;
+				width: auto;
 			}
 
 			.modal-body {
@@ -660,6 +660,18 @@
 		}
 
 		@media only screen and (max-width: 400px){
+			.container{
+				max-width: 100%;
+				width: auto;
+				margin-left: 14px;
+				margin-right: 14px;
+			}
+
+			.modal-container {
+				margin-left: 14px;
+				margin-right: 14px;
+			}
+
 			header img {
 				width: 115.2px;
 				height: 148.65px;
